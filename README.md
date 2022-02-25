@@ -19,6 +19,7 @@ SO THAT I can gauge my progress compared to my peers
 4. When you answer incorrectly, you lose time
 5. when the timer hits 0 or questions are all answered the game ends
 6. On game end, you can save initials and score into local memory
+
 GIVEN I am taking a code quiz
 WHEN I click the start button
 THEN a timer starts and I am presented with a question

@@ -15,40 +15,48 @@ const choiceA = document.getElementById('A')
 const choiceB = document.getElementById('B')
 const choiceC = document.getElementById('C')
 const progress = document.getElementById('progress')
-const scoreContainer = document.getElementById('scoreContainer')
+const score = document.getElementById('score')
+
+let grade = 0
 
 //Question display variables
-let lastQuestionIndex = questions.length - 1
-let runningQuestionIndex = 0;
+let runningQuestion = 0;
 
 //Timer variables
+let count = 0
 const questionTime = 30
+let TIMER
 
-//Array container for the questions
+//Questions for the quiz
 let questions = [
   {
     question: "What is one way of declaring a variable in JS?",
     choiceA: "const",
     choiceB: "function",
-    choiceC: "string"
+    choiceC: "string",
+    correct: "A"
   },
   {
     question: "What is a true/false data type called?",
     choiceA: "string",
     choiceB: "boolean",
-    choiceC: "int"
+    choiceC: "int",
+    correct: "B"
   },
   {
     question: "The condition in an if / else statement is enclosed within:",
     choiceA: "quotes",
     choiceB: "parentheses",
-    choiceC: "square brackets"
+    choiceC: "square brackets",
+    correct: "B"
   }
 ]
 
+//indexing the question, have to put it under questions
+const lastQuestion = questions.length - 1
 //function that displays the questions
 const renderQuestion = () => {
-  let q = questions[runningQuestionIndex]
+  let q = questions[runningQuestion]
   question.innerHTML = "<p>" + q.question + "</p>"
   choiceA.innerHTML = q.choiceA
   choiceB.innerHTML = q.choiceB
@@ -57,18 +65,60 @@ const renderQuestion = () => {
 
 //progress bar changer
 const progressBar = () => {
-  for (let qIndex = 0; qIndex <= lastQuestionIndex; qIndex++) {
+  for (let qIndex = 0; qIndex <= lastQuestion; qIndex++) {
     progress.innerHTML += "<div class='prog' id=" + qIndex + "></div>"
+
+  }
+}
+
+const checkAnswer = (answer)=>{
+  if(answer === questions[runningQuestion].correct){
+    //answer is correct
+    grade++
+    //change the progress bar
+    //correctAnswer()
+  }else{
+    //answer is wrong
+    grade--
+    //change the progress bar
+    //incorrectAnswer()
+  }
+
+  if(runningQuestion < lastQuestion){
+    //go to next question if quiz is not done
+    runningQuestion++
+    renderQuestion()
 
   }
 }
 //Changes the progress bar to GREEN if the answer is correct
 const correctAnswer = () => {
-  document.getElementById(runningQuestionIndex).style.backgroundColor = "green"
+  document.getElementById(runningQuestion).style.backgroundColor = "green"
 }
 //Changes the progress bar to RED if the answer is wrong
 const incorrectAnswer = () => {
-  document.getElementById(runningQuestionIndex).style.backgroundColor = "red"
+  document.getElementById(runningQuestion).style.backgroundColor = "red"
 }
 
+const renderCounter = () => {
+  if (count <= questionTime) {
+    counter.innerHTML = count;
+    count++
+  } else {
+    count = 0
+  }
+}
+
+const startQuiz = () => {
+  start.style.display = "none"
+  renderQuestion()
+  quiz.style.display = "block"
+  renderCounter()
+  checkAnswer()
+  TIMER = setInterval(renderCounter, 1000)
+  console.log(grade)
+
+}
+
+start.addEventListener('click',startQuiz)
 

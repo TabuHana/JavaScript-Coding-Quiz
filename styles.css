@@ -1,7 +1,79 @@
-#quiz{
-  display: none;
+body {
+  font-size: 20px;
 }
 
-#scoreContainer{
+#container {
+  margin: 20px auto;
+  background-color: lightgray;
+  height: 300px;
+  width: 700px;
+  border-radius: 5px;
+  position: relative;
+}
+
+#start {
+  font-weight: bolder;
+  font-size: 2em;
+  word-break: break-all;
+  width: 100px;
+  height: 150px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid;
+  left: 300px;
+  top: 50px;
+  color: black;
+  position: absolute;
+}
+
+#start:hover {
+  border: 3px solid green;
+  color:green;
+}
+
+#choices{
+  width:550px;
+  position:absolute;
+  right:0;
+  top:150px;
+
+}
+
+.choice{
+  display:inline-block;
+  text-align: center;
+  border: 1px solid black;
+  width: 125px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding:5px;
+}
+
+.choice:hover{
+  border: 1px solid blue;
+  color:blue;
+}
+
+#timer{
+  position:absolute;
+  width:100px;
+  bottom:0px;
+  text-align:left;
+  font-size: 3em;
+  padding:20px;
+}
+
+#quiz{
   display:none;
+}
+
+#score{
+  display:none;
+}
+
+#question p{
+  margin:0;
+  padding:15px;
+  font-size:2em;
+  text-align: center;
 }
