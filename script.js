@@ -15,17 +15,10 @@ const choiceA = document.getElementById('A')
 const choiceB = document.getElementById('B')
 const choiceC = document.getElementById('C')
 const progress = document.getElementById('progress')
-const score = document.getElementById('score')
+const score = document.getElementById('scores')
+const scoreTable = document.getElementById('highScores')
+const submit = document.getElementById('submit')
 
-let grade = 0
-
-//Question display variables
-let runningQuestion = 0;
-
-//Timer variables
-let count = 60
-const questionTime = 60
-let TIMER
 
 //Questions for the quiz
 let questions = [
@@ -52,35 +45,26 @@ let questions = [
   }
 ]
 
-//indexing the question, have to put it under questions
+//variables
 const lastQuestion = questions.length - 1
+
+let runningQuestion = 0;
+let count = 60
+const questionTime = 60
+let TIMER
+let scorez = 0
 
 //function that displays the questions
 const renderQuestion = () => {
   let q = questions[runningQuestion]
+
   question.innerHTML = "<p>" + q.question + "</p>"
   choiceA.innerHTML = q.choiceA
   choiceB.innerHTML = q.choiceB
   choiceC.innerHTML = q.choiceC
 }
 
-//progress bar changer
-const progressBar = () => {
-  for (let qIndex = 0; qIndex <= lastQuestion; qIndex++) {
-    progress.innerHTML += "<div class='prog' id=" + qIndex + "></div>"
-
-  }
-}
-
-
-const renderCounter = () => {
-  if (count <= questionTime) {
-    counter.innerHTML = count;
-    count++
-  } else {
-    count = 0
-  }
-}
+//starts Quiz
 
 const startQuiz = () => {
   start.style.display = "none"
@@ -89,9 +73,35 @@ const startQuiz = () => {
   renderCounter()
   checkAnswer()
   TIMER = setInterval(renderCounter, 1000)
-  console.log(grade)
-
+  
 }
 
 start.addEventListener('click', startQuiz)
+//render process
+const renderProcess = () => {
+  for (let qIndex = 0; qIndex < lastQuestion; qIndex++) {
+    progress.innerHTML += "<div class = 'prog' id=" + qIndex + "></div>"
+  }
+}
 
+//counter
+//const renderCounter = () => 
+
+//check answers
+function checkAnswer(answer) {
+  //answer is correct
+  if (answer == questions[runningQuestion].correct) {
+    grade++;
+  } else {
+    //answer is wrong
+    count -= 10;
+  }
+  if (runningQuestion < lastQuestion) {
+    runningQuestion++;
+    renderQuestion();
+  } else {
+    //ends the quiz
+    clearInterval(TIMER);
+    scoreRender();
+  }
+}
