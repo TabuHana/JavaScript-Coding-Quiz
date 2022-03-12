@@ -71,34 +71,6 @@ const progressBar = () => {
   }
 }
 
-const checkAnswer = (answer)=>{
-  if(answer === questions[runningQuestion].correct){
-    //answer is correct
-    grade++
-    //change the progress bar
-    //correctAnswer()
-  }else{
-    //answer is wrong
-    grade--
-    //change the progress bar
-    //incorrectAnswer()
-  }
-
-  if(runningQuestion < lastQuestion){
-    //go to next question if quiz is not done
-    runningQuestion++
-    renderQuestion()
-
-  }
-}
-//Changes the progress bar to GREEN if the answer is correct
-const correctAnswer = () => {
-  document.getElementById(runningQuestion).style.backgroundColor = "green"
-}
-//Changes the progress bar to RED if the answer is wrong
-const incorrectAnswer = () => {
-  document.getElementById(runningQuestion).style.backgroundColor = "red"
-}
 
 const renderCounter = () => {
   if (count <= questionTime) {
@@ -120,5 +92,5 @@ const startQuiz = () => {
 
 }
 
-start.addEventListener('click',startQuiz)
+start.addEventListener('click', startQuiz)
 
