@@ -77,3 +77,8 @@ body {
   font-size:2em;
   text-align: center;
 }
+
+#highscore{
+  text-align: center;
+  display: none;
+}

@@ -23,8 +23,8 @@ let grade = 0
 let runningQuestion = 0;
 
 //Timer variables
-let count = 0
-const questionTime = 30
+let count = 60
+const questionTime = 60
 let TIMER
 
 //Questions for the quiz
@@ -54,6 +54,7 @@ let questions = [
 
 //indexing the question, have to put it under questions
 const lastQuestion = questions.length - 1
+
 //function that displays the questions
 const renderQuestion = () => {
   let q = questions[runningQuestion]
