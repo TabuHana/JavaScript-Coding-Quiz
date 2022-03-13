@@ -8,6 +8,7 @@
 
 //Create variables for elements
 const start = document.getElementById('start')
+const startText = document.getElementById('start-quiz')
 const quiz = document.getElementById('quiz')
 const question = document.getElementById('question')
 const counter = document.getElementById('counter')
@@ -66,15 +67,13 @@ const renderQuestion = () => {
 }
 
 //starts Quiz
-
 const startQuiz = () => {
   start.style.display = "none"
+  startText.style.display = "none"
   renderQuestion()
   quiz.style.display = "block"
   renderCounter()
   TIMER = setInterval(renderCounter, 1000)
-  // checkAnswer()
-  
 }
 
 start.addEventListener('click', startQuiz)
@@ -121,7 +120,38 @@ function checkAnswer(answer) {
   }
 }
 
+//renders the ending score display
 scoreRender = () => {
   quiz.style.display = 'none'
   scoreDiv.style.display = 'block'
+}
+
+submit.addEventListener(`click`, event => {
+  let newScore = {
+    time: grade,
+    initials: document.getElementById(`first_name`).value
+  }
+  //This portion ensures that the scores and times are saved in local storage. Local storage requires us to use JSON to parse the information into strings easily. 
+  if (localStorage.getItem(`scores`)) {
+    let scores = [];
+    scores = JSON.parse(localStorage.getItem(`scores`))
+    scores.push(newScore)
+    localStorage.setItem("scores", JSON.stringify(scores));
+  } else {
+    let scores = [];
+    scores.push(newScore)
+    localStorage.setItem("scores", JSON.stringify(scores));
+  }
+  // invoke the function to show the high scores.
+  highscoreTable()
+})
+// function gets items from the local storage so we can display the scores on the website. Used innerHTML to simply display scores from javaScript
+function highscoreTable() {
+  scoreDiv.style.display = "none";
+  let scores = [];
+  scores = JSON.parse(localStorage.getItem(`scores`))
+  console.log(scores)
+  highTable.innerHTML = scores
+    .map((grade) => `<li>${grade.initials} - ${grade.time}`)
+    .join('');
 }
