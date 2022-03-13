@@ -18,6 +18,7 @@ const progress = document.getElementById('progress')
 const score = document.getElementById('scores')
 const scoreTable = document.getElementById('highScores')
 const submit = document.getElementById('submit')
+const scoreDiv = document.getElementById('highscore')
 
 
 //Questions for the quiz
@@ -49,10 +50,10 @@ let questions = [
 const lastQuestion = questions.length - 1
 
 let runningQuestion = 0;
-let count = 60
-const questionTime = 60
+let count = 30
+// const questionTime = 30
 let TIMER
-let scorez = 0
+let grade = 0
 
 //function that displays the questions
 const renderQuestion = () => {
@@ -71,8 +72,8 @@ const startQuiz = () => {
   renderQuestion()
   quiz.style.display = "block"
   renderCounter()
-  checkAnswer()
   TIMER = setInterval(renderCounter, 1000)
+  // checkAnswer()
   
 }
 
@@ -85,16 +86,30 @@ const renderProcess = () => {
 }
 
 //counter
-//const renderCounter = () => 
+const renderCounter = () => {
+  if (count > -1) {
+    counter.innerHTML = count
+    count--
+  } else {
+    if (runningQuestion < lastQuestion) {
+      runningQuestion++
+      renderQuestion()
+    } else {
+      clearInterval(TIMER)
+      scoreRender()
+    }
+  }
+}
 
 //check answers
 function checkAnswer(answer) {
   //answer is correct
-  if (answer == questions[runningQuestion].correct) {
+  if (answer === questions[runningQuestion].correct) {
     grade++;
   } else {
     //answer is wrong
     count -= 10;
+    console.log('wrong')
   }
   if (runningQuestion < lastQuestion) {
     runningQuestion++;
@@ -104,4 +119,9 @@ function checkAnswer(answer) {
     clearInterval(TIMER);
     scoreRender();
   }
+}
+
+scoreRender = () => {
+  quiz.style.display = 'none'
+  scoreDiv.style.display = 'block'
 }
